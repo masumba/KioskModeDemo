@@ -12,6 +12,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:enabled="false"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -22,12 +23,30 @@
             </intent-filter>
         </activity>
 
+        <!--Autoload Start-->
         <receiver android:name=".StartOnBootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <action android:name="android.intent.action.QUICKBOOK_POWERON"/>
             </intent-filter>
         </receiver>
+        <!--AutoLoad End-->
+        <!--Kiosk Start-->
+        <receiver
+            android:name=".DeviceAdminReceiver"
+            android:description="@string/app_name"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin_receiver"/>
+            <intent-filter>
+                <action android:name="android.intent.action.DEVICE_ADMIN_ENABLE"/>
+                <action android:name="android.intent.action.PROFILE_PROVISIONING_COMPLETE"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <!--Kiosk End-->
     </application>
 
 </manifest>
